@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\Contracts;
 
-use App\Filters\PageCriteria;
-use App\Filters\ProviderFilterCriteria;
 use App\Models\Provider;
+use App\Repositories\Criteria\PageCriteria;
+use App\Repositories\Criteria\ProviderFilterCriteria;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 

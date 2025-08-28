@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Filters\PageCriteria;
-use App\Filters\ProviderFilterCriteria;
 use App\Http\Requests\ProviderIndexRequest;
 use App\Models\Provider;
 use App\Repositories\Contracts\ProviderRepositoryInterface;
+use App\Repositories\Criteria\PageCriteria;
+use App\Repositories\Criteria\ProviderFilterCriteria;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class ProviderService
 {

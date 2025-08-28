@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repositories\Eloquent;
 
-use App\Filters\PageCriteria;
-use App\Filters\ProviderFilterCriteria;
 use App\Models\Provider;
 use App\Repositories\Contracts\ProviderRepositoryInterface;
+use App\Repositories\Criteria\PageCriteria;
+use App\Repositories\Criteria\ProviderFilterCriteria;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class EloquentProviderRepository implements ProviderRepositoryInterface
