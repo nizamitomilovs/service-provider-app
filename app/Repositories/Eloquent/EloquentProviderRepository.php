@@ -16,7 +16,9 @@ final class EloquentProviderRepository implements ProviderRepositoryInterface
 {
     public function findPaginatedWithFilters(ProviderFilterCriteria $criteria, PageCriteria $page): LengthAwarePaginator
     {
-        $query = Provider::query()->with('category');
+        $query = Provider::query()
+            ->with('category')
+            ->select('id', 'name', 'category_id', 'short_description', 'logo');
 
         $this->applyFilters($criteria, $query);
 
@@ -30,6 +32,7 @@ final class EloquentProviderRepository implements ProviderRepositoryInterface
     {
         return Provider::query()
             ->with('category')
+            ->select('id', 'name', 'category_id', 'short_description', 'logo')
             ->where('id', $id)
             ->firstOrFail();
     }

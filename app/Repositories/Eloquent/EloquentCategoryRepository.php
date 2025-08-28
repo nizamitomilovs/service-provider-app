@@ -12,6 +12,8 @@ final class EloquentCategoryRepository implements CategoryRepositoryInterface
 {
     public function findAll(): Collection
     {
-        return Category::query()->get();
+        return Category::query()
+            ->select('id', 'name')
+            ->get();
     }
 }
