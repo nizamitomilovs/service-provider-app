@@ -1,61 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Service Provider Directory
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🚀 Quick Start
 
-## About Laravel
+### Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Docker & Docker Compose** (latest version)
+- **Make** (for using the provided Makefile commands)
+- **Git**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Docker Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The fastest way to get started using Docker:
 
-## Learning Laravel
+# Start the development environment
+make dev
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This single command will:
+- Start all required services (Laravel, MySQL, Redis, Nginx)
+- Install PHP and Node dependencies
+- Set up the Laravel application
+- Run database migrations and seeders
+- Build frontend assets
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Your application will be available at: **http://localhost:8002**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
 
-## Laravel Sponsors
+# Performance Focused Review
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🏗️ Architecture & Design Decisions
+### MVC Pattern Implementation
+- **Controllers**: Lightweight controllers focused on HTTP request handling and response formatting
+- **Models**: Rich Eloquent models with proper relationships and accessors
+- **Views**: Blade templates with component-based architecture for reusability
 
-### Premium Partners
+### Database Design Philosophy
+- **Normalized Structure**: Proper foreign key relationships between categories and providers
+- **UUID Primary Keys**: Using UUID7 for better distribution, security, and scalability
+- **Indexing**: Indexes on frequently queried columns for optimal performance
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Repository Pattern
+- **Interface-based Design**: Abstracted data access through `ProviderRepositoryInterface`
 
-## Contributing
+## ⚡ Performance Optimizations
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Database Performance
+- **Eager Loading**: All relationships loaded in single queries to prevent N+1 problems
+  ```php
+  Provider::with('category')->paginate(12);
+  ```
+- **Selective Field Loading**: Only necessary fields selected from related models
+  ```php
+    $query->select('id', 'name', 'slug')->get();
+  ```
+- **Query Result Caching**: Frequently accessed data cached to reduce database load
+  ```php
+  $categories = Cache::remember('categories', 3600, function () {
+      ...
+  });
+  ```
+**Lazy Loading**: Images loaded only when needed
+  ```html
+  <img src="placeholder.jpg" data-src="actual-image.jpg" loading="lazy">
+  ```
 
-## Code of Conduct
+**Minimal Critical CSS**: Only essential styles inlined to reduce initial payload
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🚀 Areas for Future Enhancement
+- **Caching**: Add tag invalidation, cache products
+- **RESTful API**: Moving to vue and API structure
+- **Image loading**: Optimize image loading
