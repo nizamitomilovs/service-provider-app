@@ -17,9 +17,6 @@
         .border-gray-200 { border-color: rgb(229 231 235); }
     </style>
 
-    <link rel="preload" as="style" href="{{ Vite::asset('resources/css/app.css') }}"/>
-    <link rel="preload" as="style" href="{{ Vite::asset('resources/js/app.js') }}"/>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('head')
@@ -43,7 +40,5 @@
     <main>
         @yield('content')
     </main>
-
-    <script src="{{ Vite::asset('resources/js/app.js') }}" defer></script>
 </body>
 </html>
