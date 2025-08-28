@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -45,5 +46,21 @@ final class Category extends Model
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updated($callback): void
+    {
+        Cache::forget('all');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleted($callback): void
+    {
+        Cache::forget('categories:all');
     }
 }

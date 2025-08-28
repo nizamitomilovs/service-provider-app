@@ -69,5 +69,6 @@ Your application will be available at: **http://localhost:8002**
 
 ## 🚀 Areas for Future Enhancement
 - **Caching**: Add tag invalidation, cache products
+- **Caching Implementation**: The current implementation has some basic caching in the CategoryService, but a more comprehensive and unified approach would be more beneficial in the future 
 - **RESTful API**: Moving to vue and API structure
 - **Image loading**: Optimize image loading
