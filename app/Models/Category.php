@@ -38,6 +38,22 @@ final class Category extends Model
         'name',
     ];
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function updated($callback): void
+    {
+        Cache::forget('all');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function deleted($callback): void
+    {
+        Cache::forget('categories:all');
+    }
+
     public function newUniqueId(): string
     {
         return (string) Uuid::uuid7();
@@ -46,21 +62,5 @@ final class Category extends Model
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function updated($callback): void
-    {
-        Cache::forget('all');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function deleted($callback): void
-    {
-        Cache::forget('categories:all');
     }
 }
