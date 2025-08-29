@@ -43,6 +43,8 @@ final class Category extends Model
      */
     public static function updated($callback): void
     {
+        parent::updated($callback);
+
         Cache::forget('all');
     }
 
@@ -51,6 +53,8 @@ final class Category extends Model
      */
     public static function deleted($callback): void
     {
+        parent::deleted($callback);
+
         Cache::forget('categories:all');
     }
 
